@@ -7,7 +7,6 @@
       if (this.readyState === 4) {
         switch (xhr.status) {
           case 200: {
-            console.log(xhr.responseText);
             let users = JSON.parse(xhr.responseText);
             let output = "";
             for (let i in users) {
@@ -65,6 +64,4 @@
     xhr.send();
   }
   fetchUsers();
-
-  return (document.getElementById("content").innerHTML = output);
 })();
