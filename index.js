@@ -1,8 +1,8 @@
-(function () {
+const displayUsers = (function () {
+  const _url = "https://jsonplaceholder.typicode.com/users";
   function fetchUsers() {
-    let url = "https://jsonplaceholder.typicode.com/users";
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+    xhr.open("GET", _url, true);
     xhr.onload = function (e) {
       if (this.readyState === 4) {
         switch (xhr.status) {
@@ -63,5 +63,7 @@
     };
     xhr.send();
   }
-  fetchUsers();
+  return { fetchUsers };
 })();
+
+displayUsers.fetchUsers();
