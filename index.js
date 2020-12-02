@@ -1,54 +1,40 @@
 const displayUsers = (function () {
   const _url = "https://jsonplaceholder.typicode.com/users";
+
+  const displayUser = (data) => {
+    let output = "";
+    data.forEach((data) => {
+      output += `
+                <div class="user"> 
+                <div class="user-item">
+                <p class='strong'>
+                Name:
+                </p>
+                ${data.name}
+                </div>
+                </div>
+                `;
+    });
+    return output;
+  };
+
   function fetchUsers() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", _url, true);
-    xhr.onload = function (e) {
+    xhr.onprogress = function () {
+      console.log("state", xhr.readyState);
+    };
+
+    xhr.onerror = function () {
+      console.log("Error");
+    };
+
+    xhr.onload = function () {
       if (this.readyState === 4) {
         switch (xhr.status) {
           case 200: {
             let users = JSON.parse(xhr.responseText);
-            let output = "";
-            for (let i in users) {
-              output +=
-                '<div class="user">' +
-                '<div class="user-item">' +
-                "<p class='strong'>" +
-                "Name: " +
-                "</p>" +
-                users[i].name +
-                "</div>" +
-                '<div class="user-item">' +
-                "<p class='strong'>" +
-                "Username: " +
-                "</p>" +
-                users[i].username +
-                "</div>" +
-                '<div class="user-item">' +
-                "<p class='strong'>" +
-                "Username: " +
-                "</p>" +
-                users[i].email +
-                "</div>" +
-                '<div class="user-item">' +
-                "<p class='strong'>" +
-                "Email: " +
-                "</p>" +
-                users[i].phone +
-                "</div>" +
-                '<div class="user-item">' +
-                "<p class='strong'>" +
-                "Address: " +
-                "</p>" +
-                users[i].address.street +
-                " " +
-                users[i].address.suite +
-                users[i].address.city +
-                " " +
-                users[i].address.zipcode +
-                "</div>" +
-                "</div>";
-            }
+            let output = displayUser(users);
             document.getElementById("users-grid").innerHTML = output;
             break;
           }
