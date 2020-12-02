@@ -33,6 +33,7 @@
 
 .user {
     display: block;
+    min-width: 200px;
     border-radius: 8px;
     text-align: center;
     padding: 5px 10px;
